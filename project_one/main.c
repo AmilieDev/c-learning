@@ -4,6 +4,16 @@
 #include <time.h>
 #include <string.h>
 
+#define TYPECODES C(ROCK)C(PAPER)C(SCISSORS)
+#define C(x) x,
+enum TypeCodes {
+    Rock, Paper, Scissors
+};
+#undef C
+
+#define C(x) #x,
+const char * const typecode[] = { TYPECODES };
+
 /* All programs, need an entry point */
 int main(void){
     srand(time(NULL)); /* Seeding with the current time to make it change constantly. */
@@ -28,7 +38,7 @@ int main(void){
         char computer_answer_tmp[5] = "Rock";
         strcpy(computer_answer, computer_answer_tmp);
     } else if (computer_selected == 1) {
-        char computer_answer_tmp[6] ="Paper";
+        char computer_answer_tmp[6] = "Paper";
         strcpy(computer_answer, computer_answer_tmp);
     } else if (computer_selected == 2) {
         char computer_answer_tmp[9] = "Scissors";
@@ -65,35 +75,15 @@ int main(void){
     }
 
     /* Overall totals / results, then exiting the program. */
-    if (strcmp(computer_answer, "Rock") == 0 && strcmp(user_answer, "Rock") == 0){
-        printf("Draw! You both selected Rock!\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Paper") == 0 && strcmp(user_answer, "Rock") == 0) {
-        printf("Computer Victory! The computer selected Paper - you selected Rock.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Scissors") == 0 && strcmp(user_answer, "Rock") == 0) {
-        printf("Player Victory! The computer selected Scissors - you selected Rock.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Rock") == 0 && strcmp(user_answer, "Paper") == 0) {
-        printf("Player Victory! The computer selected Rock - you selected Paper.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Rock") == 0 && strcmp(user_answer, "Scissors") == 0) {
-        printf("Computer Victory! The computer selected Rock - you selected Scissors.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Paper") == 0 && strcmp(user_answer, "Paper") == 0) {
-        printf("Draw! You both selected Paper!\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Paper") == 0 && strcmp(user_answer, "Scissors") == 0) {
-        printf("Player Victory! The computer selected Paper - you selected Scissors.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Scissors") == 0 && strcmp(user_answer, "Paper") == 0) {
-        printf("Computer Victory! The computer selected Scissors - you selected Paper.\n");
-        return 0;
-    } else if (strcmp(computer_answer, "Scissors") == 0 && strcmp(user_answer, "Scissors") == 0) {
-        printf("Draw! You both selected Scissors!\n");
-        return 0;
-    } else {
-        printf("Fatal Error; Something went wrong... Please uncomment any comments and try find what went wrong...");
-        return -1;
+    if (strcmp(computer_answer, user_answer) == 0){
+        printf("Draw! You both selected %s!\n", user_answer);
+    } else if ((strcmp(user_answer, "Paper") == 0 && strcmp(computer_answer, "Rock") == 0) ||
+                (strcmp(user_answer, "Rock") == 0 && strcmp(computer_answer, "Scissors") == 0) ||
+                (strcmp(user_answer, "Scissors") == 0 && strcmp(computer_answer, "Paper") == 0)) {
+            printf("Player Victory! The computer selected %s - you selected %s.\n", computer_answer, user_answer);
+        }  else {
+        printf("Computer won! You selected %s and the computer selected %s.\n", user_answer, computer_answer);
     }
+    return 0;
+
 }
