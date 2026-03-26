@@ -4,15 +4,28 @@
 #include <time.h>
 #include <string.h>
 
-#define TYPECODES C(ROCK)C(PAPER)C(SCISSORS)
-#define C(x) x,
-enum TypeCodes {
-    Rock, Paper, Scissors
-};
-#undef C
+// Source - https://stackoverflow.com/a/10966395
+// Posted by Terrence M, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-03-26, License - CC BY-SA 3.0
 
-#define C(x) #x,
-const char * const typecode[] = { TYPECODES };
+#define FOREACH_TYPE(TYPE) \
+        TYPE(rock)   \
+        TYPE(paper)  \
+        TYPE(scissors)   \
+
+#define GENERATE_ENUM(ENUM) ENUM,
+#define GENERATE_STRING(STRING) #STRING,
+
+enum TYPE_ENUM {
+    FOREACH_TYPE(GENERATE_ENUM)
+};
+
+static const char *TYPE_STRING[] = {
+    FOREACH_TYPE(GENERATE_STRING)
+};
+
+// ^ Code provided in a source / stackoverflow source.
+// Modified to fit this RockPaperScissors program.
 
 /* All programs, need an entry point */
 int main(void){
@@ -28,7 +41,9 @@ int main(void){
     /* Prepare for computer answer, allocate 50 bytes to be safe.*/
     char computer_answer[50];
 
-    /*  
+     printf("Test: %s\n", TYPE_STRING[rock]);
+
+    /* 
     This should check if computerSelected is equal to whatever, and then once done
     spit out Rock, Paper or Scissors to "computerAnswer"
     See https://www.geeksforgeeks.org/c/strcpy-in-c/ for STRCPY
