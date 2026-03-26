@@ -50,13 +50,13 @@ int main(void){
     */
     if (computer_selected == 0) {
         /* These chars need to be 1 more than the actual word as C adds '\0' at the end of the program. */
-        char computer_answer_tmp[5] = "Rock";
+        char computer_answer_tmp[5] = "rock";
         strcpy(computer_answer, computer_answer_tmp);
     } else if (computer_selected == 1) {
-        char computer_answer_tmp[6] = "Paper";
+        char computer_answer_tmp[6] = "paper";
         strcpy(computer_answer, computer_answer_tmp);
     } else if (computer_selected == 2) {
-        char computer_answer_tmp[9] = "Scissors";
+        char computer_answer_tmp[9] = "scissors";
         strcpy(computer_answer, computer_answer_tmp);
     } else {
         printf("Fatal Error; Attempted to generate an invalid number.\n");
@@ -69,7 +69,7 @@ int main(void){
     /* Pull in users answer: */
     char user_answer[50];
    
-    printf("Please type 'Rock', 'Paper', or 'Scissors': ");
+    printf("Please type 'rock', 'paper', or 'scissors': ");
     scanf("%s", &user_answer);
     /* printf("Debug Output; User has selected: %s\n", user_answer); */
 
@@ -77,11 +77,11 @@ int main(void){
     Check user chose a valid input / output. If not, kick them out.
     See https://www.geeksforgeeks.org/c/strcmp-in-c/ for string comparison.
     */
-    if (strcmp(user_answer, "Rock") == 0) {
+    if (strcmp(user_answer, TYPE_STRING[rock]) == 0) {
         printf("Debug Output; User Selected: Rock\n");
-    } else if (strcmp(user_answer, "Paper") == 0) {
+    } else if (strcmp(user_answer, TYPE_STRING[paper]) == 0) {
         printf("Debug Output; User Selected: Paper\n");
-    } else if (strcmp(user_answer, "Scissors") == 0) {
+    } else if (strcmp(user_answer, TYPE_STRING[scissors]) == 0) {
         printf("Debug Output; User Selected: Scissors\n");
     } else {
         printf("Fatal Error; Incorrect input by user.\n");
@@ -92,13 +92,12 @@ int main(void){
     /* Overall totals / results, then exiting the program. */
     if (strcmp(computer_answer, user_answer) == 0){
         printf("Draw! You both selected %s!\n", user_answer);
-    } else if ((strcmp(user_answer, "Paper") == 0 && strcmp(computer_answer, "Rock") == 0) ||
-                (strcmp(user_answer, "Rock") == 0 && strcmp(computer_answer, "Scissors") == 0) ||
-                (strcmp(user_answer, "Scissors") == 0 && strcmp(computer_answer, "Paper") == 0)) {
+    } else if ((strcmp(user_answer, TYPE_STRING[paper]) == 0 && strcmp(computer_answer, TYPE_STRING[rock]) == 0) ||
+                (strcmp(user_answer, TYPE_STRING[rock]) == 0 && strcmp(computer_answer, TYPE_STRING[scissors]) == 0) ||
+                (strcmp(user_answer, TYPE_STRING[scissors]) == 0 && strcmp(computer_answer, TYPE_STRING[paper]) == 0)) {
             printf("Player Victory! The computer selected %s - you selected %s.\n", computer_answer, user_answer);
         }  else {
         printf("Computer won! You selected %s and the computer selected %s.\n", user_answer, computer_answer);
     }
     return 0;
-
 }
