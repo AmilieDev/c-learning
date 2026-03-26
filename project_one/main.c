@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 
 // Source - https://stackoverflow.com/a/10966395
 // Posted by Terrence M, modified by community. See post 'Timeline' for change history
@@ -36,12 +37,9 @@ int main(void){
     int upper_bound = 3;
 
     int computer_selected = rand() % (upper_bound - lower_bound + 1);
-    int user_selected = 0;
 
     /* Prepare for computer answer, allocate 50 bytes to be safe.*/
     char computer_answer[50];
-
-     printf("Test: %s\n", TYPE_STRING[rock]);
 
     /* 
     This should check if computerSelected is equal to whatever, and then once done
@@ -73,6 +71,12 @@ int main(void){
     scanf("%s", &user_answer);
     /* printf("Debug Output; User has selected: %s\n", user_answer); */
 
+    //  Source - https://stackoverflow.com/questions/2661766/how-do-i-lowercase-a-string-in-c
+    /* Automatically lowercase the users answer.*/
+    for(int i = 0; user_answer[i]; i++){
+        user_answer[i] = tolower(user_answer[i]);
+    }
+
     /* 
     Check user chose a valid input / output. If not, kick them out.
     See https://www.geeksforgeeks.org/c/strcmp-in-c/ for string comparison.
@@ -92,9 +96,9 @@ int main(void){
     /* Overall totals / results, then exiting the program. */
     if (strcmp(computer_answer, user_answer) == 0){
         printf("Draw! You both selected %s!\n", user_answer);
-    } else if ((strcmp(user_answer, TYPE_STRING[paper]) == 0 && strcmp(computer_answer, TYPE_STRING[rock]) == 0) ||
-                (strcmp(user_answer, TYPE_STRING[rock]) == 0 && strcmp(computer_answer, TYPE_STRING[scissors]) == 0) ||
-                (strcmp(user_answer, TYPE_STRING[scissors]) == 0 && strcmp(computer_answer, TYPE_STRING[paper]) == 0)) {
+    } else if ((user_answer == TYPE_STRING[paper] && computer_answer == TYPE_STRING[rock]) ||
+                (user_answer == TYPE_STRING[rock] && computer_answer == TYPE_STRING[scissors]) ||
+                user_answer == TYPE_STRING[scissors] && computer_answer == TYPE_STRING[paper]) {
             printf("Player Victory! The computer selected %s - you selected %s.\n", computer_answer, user_answer);
         }  else {
         printf("Computer won! You selected %s and the computer selected %s.\n", user_answer, computer_answer);
