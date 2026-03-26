@@ -71,7 +71,8 @@ int main(void){
     scanf("%s", &user_answer);
     /* printf("Debug Output; User has selected: %s\n", user_answer); */
 
-    //  Source - https://stackoverflow.com/questions/2661766/how-do-i-lowercase-a-string-in-c
+    ///  Source - https://stackoverflow.com/questions/2661766/how-do-i-lowercase-a-string-in-c
+
     /* Automatically lowercase the users answer.*/
     for(int i = 0; user_answer[i]; i++){
         user_answer[i] = tolower(user_answer[i]);
@@ -96,10 +97,10 @@ int main(void){
     /* Overall totals / results, then exiting the program. */
     if (strcmp(computer_answer, user_answer) == 0){
         printf("Draw! You both selected %s!\n", user_answer);
-    } else if ((user_answer == TYPE_STRING[paper] && computer_answer == TYPE_STRING[rock]) ||
-                (user_answer == TYPE_STRING[rock] && computer_answer == TYPE_STRING[scissors]) ||
-                user_answer == TYPE_STRING[scissors] && computer_answer == TYPE_STRING[paper]) {
-            printf("Player Victory! The computer selected %s - you selected %s.\n", computer_answer, user_answer);
+    } else if ((strcmp(user_answer, "Paper") == 0 && strcmp(computer_answer, "Rock") == 0) ||
+            (strcmp(user_answer, "Rock") == 0 && strcmp(computer_answer, "Scissors") == 0) ||
+            (strcmp(user_answer, "Scissors") == 0 && strcmp(computer_answer, "Paper") == 0)) {
+                printf("Player Victory! The computer selected %s - you selected %s.\n", computer_answer, user_answer);
         }  else {
         printf("Computer won! You selected %s and the computer selected %s.\n", user_answer, computer_answer);
     }
